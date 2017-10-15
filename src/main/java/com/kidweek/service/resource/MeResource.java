@@ -1,8 +1,11 @@
 package com.kidweek.service.resource;
 
 
+import com.kidweek.service.model.FacebookUser;
 import com.kidweek.service.model.Status;
 import com.kidweek.service.model.StatusForDate;
+import com.kidweek.service.service.FacebookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -14,13 +17,16 @@ import java.util.List;
 @RequestMapping(value = "/api/v1/me")
 public class MeResource {
 
-    @GetMapping(value = "/status/{date}")
-    public StatusForDate statusForDate(@PathVariable(name = "date") LocalDate date) {
-        return new StatusForDate(Status.PRESENT, date);
+    @Autowired
+    private FacebookService facebookService;
+
+    @GetMapping(value = "")
+    public FacebookUser me(@RequestParam(name = "access_token") String fbToken) {
+        return facebookService.getUser(fbToken);
     }
-    @GetMapping(value = "/calendar/{year-month}")
-    public List<StatusForDate> calendar(@PathVariable(name = "id") String id,
-                                        @PathVariable(name = "year") YearMonth yearMonth) {
+
+    @GetMapping(value = "/calendar/{yearMonth}")
+    public List<StatusForDate> calendar(@PathVariable(name = "yearMonth") YearMonth yearMonth) {
         return Collections.emptyList();
     }
 

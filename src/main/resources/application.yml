@@ -2,3 +2,12 @@ spring:
   jackson:
     property-naming-strategy: SNAKE_CASE
     serialization.WRITE_DATES_AS_TIMESTAMPS: false
+facebook:
+  graph.url: https://graph.facebook.com/v2.10/me
+management:
+  context-path: /mx
+endpoints:
+  sensitive: false
+  enabled: true
+  info:
+    enabled: true
