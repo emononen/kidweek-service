@@ -1,11 +1,11 @@
 package com.kidweek.service.security;
 
-import com.google.common.base.Strings;
 import com.kidweek.service.model.FacebookUser;
 import com.kidweek.service.service.FacebookService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -14,23 +14,26 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collection;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
-
-//@Component
+@Component
+@Slf4j
 public class FacebookAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private FacebookService facebookService;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = request.getParameter("access_token");
-        if (isNullOrEmpty(token)) {
-            throw new RuntimeException("Missing access token");
+        try {
+            FacebookUser user = facebookService.getUser(token);
+            FacebookAuthentication fbAuthentication = new FacebookAuthentication(user);
+            fbAuthentication.setAuthenticated(true);
+            SecurityContextHolder.getContext().setAuthentication(fbAuthentication);
+        } catch (Exception e) {
+            logger.error(e);
         }
 
-        FacebookUser user = facebookService.getUser(token);
-
+        filterChain.doFilter(request, response);
     }
 }
