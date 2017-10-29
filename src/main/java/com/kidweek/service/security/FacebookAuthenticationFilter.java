@@ -1,10 +1,10 @@
 package com.kidweek.service.security;
 
-import com.kidweek.service.model.FacebookUser;
+import com.kidweek.service.model.User;
 import com.kidweek.service.service.FacebookService;
+import com.kidweek.service.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -21,12 +21,14 @@ public class FacebookAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private FacebookService facebookService;
+    @Autowired
+    private UserService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = request.getParameter("access_token");
         try {
-            FacebookUser user = facebookService.getUser(token);
+            User user = facebookService.getUser(token);
             FacebookAuthentication fbAuthentication = new FacebookAuthentication(user);
             fbAuthentication.setAuthenticated(true);
             SecurityContextHolder.getContext().setAuthentication(fbAuthentication);

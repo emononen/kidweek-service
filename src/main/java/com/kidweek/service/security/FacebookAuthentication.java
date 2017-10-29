@@ -1,34 +1,31 @@
 package com.kidweek.service.security;
 
-import com.kidweek.service.model.FacebookUser;
+import com.kidweek.service.model.User;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 
-import java.util.Collection;
 import java.util.Collections;
 
 public class FacebookAuthentication extends AbstractAuthenticationToken {
 
-    private FacebookUser user;
+    private User user;
 
-    public FacebookAuthentication(FacebookUser user) {
+    public FacebookAuthentication(User user) {
         super(Collections.emptySet());
         this.user = user;
     }
 
     @Override
-    public FacebookUser getCredentials() {
+    public User getCredentials() {
         return user;
     }
 
     @Override
-    public FacebookUser getPrincipal() {
+    public User getPrincipal() {
         return user;
     }
 
     @Override
-    public FacebookUser getDetails() {
+    public User getDetails() {
         return user;
     }
 

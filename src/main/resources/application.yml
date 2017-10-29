@@ -1,4 +1,6 @@
 spring:
+  jpa:
+    show-sql: true
   jackson:
     property-naming-strategy: SNAKE_CASE
     serialization.WRITE_DATES_AS_TIMESTAMPS: false

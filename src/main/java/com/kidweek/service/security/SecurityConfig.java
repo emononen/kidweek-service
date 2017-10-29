@@ -19,7 +19,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private FacebookAuthenticationFilter facebookAuthenticationFilter;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                .csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/api/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
