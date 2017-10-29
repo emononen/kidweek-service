@@ -1,0 +1,279 @@
+{
+	"info": {
+		"name": "kidweek",
+		"_postman_id": "b4a79b4e-4012-5281-e900-54fba4d24b33",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/me/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/me/register?access_token={{token}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"me",
+						"register"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{token}}",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/me/pattern",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/me/register?access_token={{token}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"me",
+						"register"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{token}}",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/me/exception",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"start\":\"2015-05-13\",\"end\":\"2015-05-15\",\"status\":\"PRESENT\"}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/me/exception?access_token={{token}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"me",
+						"exception"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{token}}",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/me/exception/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"start\":\"2015-05-13\",\"end\":\"2015-05-15\",\"status\":\"PRESENT\"}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/me/exception/1?access_token={{token}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"me",
+						"exception",
+						"1"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{token}}",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/me/pattern/{date}",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/me/register?access_token={{token}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"me",
+						"register"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{token}}",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/me/pattern/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/me/pattern/1?access_token={{token}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"me",
+						"pattern",
+						"1"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{token}}",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/me/calendar/{yearMonth}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/me/calendar/2017-06?access_token={{token}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"me",
+						"calendar",
+						"2017-06"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{token}}",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/me/info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/me/info?access_token={{token}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"me",
+						"info"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{token}}",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
