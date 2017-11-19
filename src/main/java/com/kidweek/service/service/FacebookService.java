@@ -1,5 +1,6 @@
 package com.kidweek.service.service;
 
+import com.kidweek.service.model.FriendList;
 import com.kidweek.service.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +24,15 @@ public class FacebookService {
     public User getUser(String fbToken) {
         checkNotNull(fbToken);
         checkArgument(fbToken.trim().length() > 0);
+        System.out.println(friends(fbToken));
         return rest.getForObject("/?access_token={fbToken}", User.class, fbToken);
+    }
+
+    public FriendList friends(String fbToken) {
+        checkNotNull(fbToken);
+        checkArgument(fbToken.trim().length() > 0);
+        return rest.getForObject("/friends?access_token={fbToken}", FriendList.class, fbToken);
+
     }
 
     @PostConstruct

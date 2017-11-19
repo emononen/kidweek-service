@@ -5,7 +5,7 @@ spring:
     property-naming-strategy: SNAKE_CASE
     serialization.WRITE_DATES_AS_TIMESTAMPS: false
 facebook:
-  graph.url: https://graph.facebook.com/v2.10/me
+  graph.url: https://graph.facebook.com/v2.11/me
 management:
   context-path: /mx
 endpoints:

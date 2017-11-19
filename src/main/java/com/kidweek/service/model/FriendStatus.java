@@ -8,5 +8,5 @@ import lombok.Data;
 public class FriendStatus {
     private String id;
     private String name;
-    private Status status;
+    private StatusForDate status;
 }
