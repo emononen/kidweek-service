@@ -1,21 +1,18 @@
 package com.kidweek.service.resource;
 
 
-import com.kidweek.service.model.User;
 import com.kidweek.service.model.StatusForDate;
+import com.kidweek.service.model.User;
 import com.kidweek.service.service.FacebookService;
 import com.kidweek.service.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.util.Collections;
 import java.util.List;
 
 import static com.kidweek.service.model.User.currentUserId;
@@ -62,7 +59,9 @@ public class MeResource {
     @GetMapping(value = "/status/{date}")
     @ApiOperation(value = "Fetches the status for a given day")
     public StatusForDate status(
-            @ApiParam(value = "Date for the status, e.g. \"2017-12-21\"") @PathVariable(name = "date") LocalDate date) {
+            @ApiParam(value = "Date for the status, e.g. \"2017-12-21\"")
+            @PathVariable(name = "date")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         userService.validate(currentUserId());
         return userService.getUser(currentUserId()).statusFor(date);
     }
