@@ -3,7 +3,6 @@ package com.kidweek.service.resource;
 import com.kidweek.service.model.FriendStatus;
 import com.kidweek.service.model.StatusForDate;
 import com.kidweek.service.service.FriendService;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;

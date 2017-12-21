@@ -16,6 +16,7 @@ import java.time.YearMonth;
 import java.util.List;
 
 import static com.kidweek.service.model.User.currentUserId;
+import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
@@ -57,9 +58,9 @@ public class MeResource {
     @GetMapping(value = "/status/{date}")
     @ApiOperation(value = "Fetches the status for a given day")
     public StatusForDate status(
-            @ApiParam(value = "Date for the status, e.g. \"2017-12-21\"")
+            @ApiParam(value = "Date for the status, e.g. \"2017-12-21\"", example = "2017-12-21")
             @PathVariable(name = "date")
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+            @DateTimeFormat(iso = DATE) LocalDate date) {
         return userService.getUser(currentUserId()).statusFor(date);
     }
 

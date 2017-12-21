@@ -43,7 +43,7 @@ public class FacebookAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         } catch (Exception e) {
             logger.error("Failed to validate token", e);
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token or non-existing user");
         }
 
     }
