@@ -3,7 +3,6 @@ package com.kidweek.service.resource;
 
 import com.kidweek.service.model.StatusForDate;
 import com.kidweek.service.model.User;
-import com.kidweek.service.service.FacebookService;
 import com.kidweek.service.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -23,8 +22,6 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RequestMapping(value = "/api/v1/me")
 public class MeResource {
 
-    @Autowired
-    private FacebookService facebookService;
     @Autowired
     private UserService userService;
 
