@@ -1,6 +1,8 @@
 package com.kidweek.service.model;
 
 import com.kidweek.service.security.FacebookAuthentication;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +26,7 @@ import static javax.persistence.FetchType.EAGER;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ApiModel(description = "Käyttäjä")
 public class User implements Serializable {
     @Id
     private String id; // facebook id
@@ -32,6 +35,7 @@ public class User implements Serializable {
     @OneToMany(fetch = EAGER, cascade = ALL)
     private Set<Pattern> patterns = new HashSet<>();
     @OneToMany(fetch = EAGER, cascade = ALL)
+    @ApiModelProperty(value = "poikkeukset")
     private Set<StatusException> exceptions = new HashSet<>();
 
     public List<StatusForDate> calendarFor(YearMonth yearMonth) {
