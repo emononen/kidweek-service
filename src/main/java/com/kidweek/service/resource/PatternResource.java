@@ -3,7 +3,6 @@ package com.kidweek.service.resource;
 import com.kidweek.service.model.Pattern;
 import com.kidweek.service.model.User;
 import com.kidweek.service.service.FacebookService;
-import com.kidweek.service.service.StatusService;
 import com.kidweek.service.service.UserRepository;
 import com.kidweek.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +29,6 @@ public class PatternResource {
     private UserService userService;
     @Autowired
     private FacebookService facebookService;
-    @Autowired
-    private StatusService statusService;
 
     @GetMapping(value = "/{date}")
     public ResponseEntity<Pattern> get(@PathVariable(name = "date") @DateTimeFormat(iso = DATE) LocalDate date,

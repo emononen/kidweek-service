@@ -60,25 +60,6 @@ public class User implements Serializable {
 
     }
 
-    Status fromPattern(Pattern pattern, LocalDate date) {
-        LocalDate startDate = pattern.getStartDate();
-        int between = toIntExact(ChronoUnit.DAYS.between(startDate, date));
-        int patternSize = pattern.getStatuses().size();
-        if (between < patternSize) {
-            return pattern.getStatuses().get(between);
-        }
-        int index = between % pattern.getStatuses().size();
-        return pattern.getStatuses().get(index);
-
-    }
-
-    Optional<Status> fromException(StatusException statusException, LocalDate date) {
-        if (!date.isBefore(statusException.getStart()) && !date.isAfter(statusException.getEnd())) {
-            return Optional.of(statusException.getStatus());
-        }
-        return Optional.empty();
-    }
-
     public Optional<Pattern> patternForDate(LocalDate date) {
 
         List<Pattern> candidates = new ArrayList<>();
@@ -113,5 +94,19 @@ public class User implements Serializable {
                 (FacebookAuthentication) SecurityContextHolder.getContext().getAuthentication();
         return authentication.getDetails();
     }
+
+    private Status fromPattern(Pattern pattern, LocalDate date) {
+        LocalDate startDate = pattern.getStartDate();
+        int between = toIntExact(ChronoUnit.DAYS.between(startDate, date));
+        int patternSize = pattern.getStatuses().size();
+        if (between < patternSize) {
+            return pattern.getStatuses().get(between);
+        }
+        int index = between % pattern.getStatuses().size();
+        return pattern.getStatuses().get(index);
+
+    }
+
+
 
 }

@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static java.util.Objects.nonNull;
 import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
 
 @Data
