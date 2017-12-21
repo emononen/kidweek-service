@@ -19,15 +19,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private FacebookAuthenticationFilter facebookAuthenticationFilter;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.csrf().disable()
+                .antMatcher("/api/**").authorizeRequests().anyRequest().authenticated()
+                .and()
+                .addFilterBefore(facebookAuthenticationFilter, BasicAuthenticationFilter.class)
+
+        ;
+/*
+
+
+        http.antMatcher("/api/**")
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/**").permitAll()
-                .anyRequest().authenticated()
+                    .antMatchers("/api/**").authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .addFilterBefore(facebookAuthenticationFilter, BasicAuthenticationFilter.class);
+*/
     }
-
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/v2/api-docs",

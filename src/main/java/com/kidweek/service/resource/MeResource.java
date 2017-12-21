@@ -30,7 +30,6 @@ public class MeResource {
     @GetMapping(value = "/info")
     @ApiOperation(value = "Information about the current user")
     public User info(@ApiParam(value = "Facebook access token", required = true) @RequestParam(name = "access_token") String fbToken) {
-        userService.validate(currentUserId());
         return userService.getUser(currentUserId());
     }
 
@@ -52,7 +51,6 @@ public class MeResource {
     public List<StatusForDate> calendar(
             @ApiParam(value = "Facebook access token", required = true) @RequestParam(name = "access_token") String fbToken,
             @ApiParam(value = "Year and month, e.g. \"2017-01\"") @PathVariable(name = "yearMonth") YearMonth yearMonth) {
-        userService.validate(currentUserId());
         return userService.getUser(currentUserId()).calendarFor(yearMonth);
     }
 
@@ -62,7 +60,6 @@ public class MeResource {
             @ApiParam(value = "Date for the status, e.g. \"2017-12-21\"")
             @PathVariable(name = "date")
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        userService.validate(currentUserId());
         return userService.getUser(currentUserId()).statusFor(date);
     }
 

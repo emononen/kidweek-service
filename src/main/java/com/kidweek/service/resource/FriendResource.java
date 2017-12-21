@@ -3,12 +3,16 @@ package com.kidweek.service.resource;
 import com.kidweek.service.model.FriendStatus;
 import com.kidweek.service.model.StatusForDate;
 import com.kidweek.service.service.FriendService;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
+
+import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
 
 @RestController
 @RequestMapping(value = "/api/v1/friends")
@@ -18,7 +22,7 @@ public class FriendResource {
     FriendService friendService;
 
     @GetMapping(value = "/{date}")
-    public List<FriendStatus> get(@PathVariable(name = "date") LocalDate date,
+    public List<FriendStatus> get(@PathVariable(name = "date") @DateTimeFormat(iso = DATE) LocalDate date,
                                   @RequestParam(name = "access_token") String fbToken) {
         return friendService.statusesFor(date, fbToken);
     }

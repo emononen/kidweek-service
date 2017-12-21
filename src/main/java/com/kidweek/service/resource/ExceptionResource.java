@@ -29,7 +29,6 @@ public class ExceptionResource {
     public User create(
             @RequestParam(name = "access_token") String fbToken,
             @RequestBody StatusException exception) {
-        userService.validate(currentUserId());
         User user = userService.getUser(currentUserId());
         user.getExceptions().add(exception);
         return userService.save(user);

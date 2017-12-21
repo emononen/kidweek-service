@@ -36,7 +36,6 @@ public class PatternResource {
     @GetMapping(value = "/{date}")
     public ResponseEntity<Pattern> get(@PathVariable(name = "date") @DateTimeFormat(iso = DATE) LocalDate date,
                               @RequestParam(name = "access_token") String fbToken) {
-        userService.validate(currentUserId());
         User user = userService.getUser(currentUserId());
         Optional<Pattern> pattern = user.patternForDate(date);
         return pattern.isPresent()
@@ -48,7 +47,6 @@ public class PatternResource {
     @ResponseStatus(CREATED)
     public User create(@RequestParam(name = "access_token") String fbToken,
                           @RequestBody Pattern pattern) {
-        userService.validate(currentUserId());
         User user = userService.getUser(currentUserId());
         pattern.setCreatedOn(LocalDateTime.now());
         user.getPatterns().add(pattern);

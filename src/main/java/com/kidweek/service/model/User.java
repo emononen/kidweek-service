@@ -64,7 +64,7 @@ public class User implements Serializable {
         LocalDate startDate = pattern.getStartDate();
         int between = toIntExact(ChronoUnit.DAYS.between(startDate, date));
         int patternSize = pattern.getStatuses().size();
-        if (between <= patternSize) {
+        if (between < patternSize) {
             return pattern.getStatuses().get(between);
         }
         int index = between % pattern.getStatuses().size();
@@ -105,9 +105,13 @@ public class User implements Serializable {
     }
 
     public static String currentUserId() {
+        return currentUser().getId();
+    }
+
+    public static User currentUser() {
         FacebookAuthentication authentication =
                 (FacebookAuthentication) SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getDetails().getId();
+        return authentication.getDetails();
     }
 
 }
