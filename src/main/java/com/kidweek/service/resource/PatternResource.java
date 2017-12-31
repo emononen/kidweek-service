@@ -6,6 +6,7 @@ import com.kidweek.service.service.FacebookService;
 import com.kidweek.service.service.StatusService;
 import com.kidweek.service.service.UserRepository;
 import com.kidweek.service.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;

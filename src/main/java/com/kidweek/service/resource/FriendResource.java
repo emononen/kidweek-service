@@ -4,6 +4,7 @@ import com.kidweek.service.model.FriendStatus;
 import com.kidweek.service.model.StatusForDate;
 import com.kidweek.service.service.FriendService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -18,7 +19,7 @@ public class FriendResource {
     FriendService friendService;
 
     @GetMapping(value = "/{date}")
-    public List<FriendStatus> get(@PathVariable(name = "date") LocalDate date,
+    public List<FriendStatus> get(@PathVariable(name = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
                                   @RequestParam(name = "access_token") String fbToken) {
         return friendService.statusesFor(date, fbToken);
     }

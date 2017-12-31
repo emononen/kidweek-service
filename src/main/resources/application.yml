@@ -13,3 +13,4 @@ endpoints:
   enabled: true
   info:
     enabled: true
+server.port: 80
