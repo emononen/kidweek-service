@@ -6,11 +6,13 @@ import com.kidweek.service.model.StatusForDate;
 import com.kidweek.service.model.User;
 import com.kidweek.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
 import static com.kidweek.service.model.User.currentUserId;
+import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
@@ -21,7 +23,7 @@ public class ExceptionResource {
     private UserService userService;
 
     @GetMapping(value = "/{date}")
-    public StatusForDate get(@PathVariable LocalDate date) {
+    public StatusForDate get(@PathVariable @DateTimeFormat(iso = DATE) LocalDate date) {
         return new StatusForDate(Status.PRESENT, date);
     }
     @PostMapping()
@@ -29,7 +31,6 @@ public class ExceptionResource {
     public User create(
             @RequestParam(name = "access_token") String fbToken,
             @RequestBody StatusException exception) {
-        userService.validate(currentUserId());
         User user = userService.getUser(currentUserId());
         user.getExceptions().add(exception);
         return userService.save(user);

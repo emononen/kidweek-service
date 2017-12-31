@@ -1,6 +1,8 @@
 package com.kidweek.service.model;
 
 import com.kidweek.service.security.FacebookAuthentication;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +26,7 @@ import static javax.persistence.FetchType.EAGER;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ApiModel(description = "Käyttäjä")
 public class User implements Serializable {
     @Id
     private String id; // facebook id
@@ -32,6 +35,7 @@ public class User implements Serializable {
     @OneToMany(fetch = EAGER, cascade = ALL)
     private Set<Pattern> patterns = new HashSet<>();
     @OneToMany(fetch = EAGER, cascade = ALL)
+    @ApiModelProperty(value = "poikkeukset")
     private Set<StatusException> exceptions = new HashSet<>();
 
     public List<StatusForDate> calendarFor(YearMonth yearMonth) {
@@ -54,25 +58,6 @@ public class User implements Serializable {
         }
         return new StatusForDate(Status.UNKNOWN, date);
 
-    }
-
-    Status fromPattern(Pattern pattern, LocalDate date) {
-        LocalDate startDate = pattern.getStartDate();
-        int between = toIntExact(ChronoUnit.DAYS.between(startDate, date));
-        int patternSize = pattern.getStatuses().size();
-        if (between <= patternSize) {
-            return pattern.getStatuses().get(between);
-        }
-        int index = between % pattern.getStatuses().size();
-        return pattern.getStatuses().get(index);
-
-    }
-
-    Optional<Status> fromException(StatusException statusException, LocalDate date) {
-        if (!date.isBefore(statusException.getStart()) && !date.isAfter(statusException.getEnd())) {
-            return Optional.of(statusException.getStatus());
-        }
-        return Optional.empty();
     }
 
     public Optional<Pattern> patternForDate(LocalDate date) {
@@ -101,9 +86,27 @@ public class User implements Serializable {
     }
 
     public static String currentUserId() {
+        return currentUser().getId();
+    }
+
+    public static User currentUser() {
         FacebookAuthentication authentication =
                 (FacebookAuthentication) SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getDetails().getId();
+        return authentication.getDetails();
     }
+
+    private Status fromPattern(Pattern pattern, LocalDate date) {
+        LocalDate startDate = pattern.getStartDate();
+        int between = toIntExact(ChronoUnit.DAYS.between(startDate, date));
+        int patternSize = pattern.getStatuses().size();
+        if (between < patternSize) {
+            return pattern.getStatuses().get(between);
+        }
+        int index = between % pattern.getStatuses().size();
+        return pattern.getStatuses().get(index);
+
+    }
+
+
 
 }

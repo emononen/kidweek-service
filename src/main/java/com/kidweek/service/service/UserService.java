@@ -64,7 +64,9 @@ public class UserService {
     }
 
     public User getUser(String userId) {
-        return userRepository.findOne(userId);
+        User user = userRepository.findOne(userId);
+        user.setName(User.currentUser().getName());
+        return user;
     }
 
     public List<User> getUsers() {

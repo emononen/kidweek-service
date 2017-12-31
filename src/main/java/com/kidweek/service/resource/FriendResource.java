@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
+import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
+
 @RestController
 @RequestMapping(value = "/api/v1/friends")
 public class FriendResource {
@@ -19,7 +21,7 @@ public class FriendResource {
     FriendService friendService;
 
     @GetMapping(value = "/{date}")
-    public List<FriendStatus> get(@PathVariable(name = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+    public List<FriendStatus> get(@PathVariable(name = "date") @DateTimeFormat(iso = DATE) LocalDate date,
                                   @RequestParam(name = "access_token") String fbToken) {
         return friendService.statusesFor(date, fbToken);
     }
