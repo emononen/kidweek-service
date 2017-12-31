@@ -2,7 +2,6 @@ package com.kidweek.service.security;
 
 import com.kidweek.service.model.User;
 import com.kidweek.service.service.FacebookService;
-import com.kidweek.service.service.UserNotFoundException;
 import com.kidweek.service.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
