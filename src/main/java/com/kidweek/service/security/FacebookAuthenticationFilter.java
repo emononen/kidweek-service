@@ -26,14 +26,14 @@ public class FacebookAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if  (!request.getServletPath().startsWith("/api/")) {
+        if  (!request.getRequestURI().startsWith("/api/")) {
             filterChain.doFilter(request, response);
             return;
         }
         String token = request.getParameter("access_token");
         try {
             User user = facebookService.getUser(token);
-            if (!request.getServletPath().endsWith("/me/register")) {
+            if (!request.getRequestURI().endsWith("/me/register")) {
                 userService.validate(user.getId());
             }
             FacebookAuthentication fbAuthentication = new FacebookAuthentication(user);

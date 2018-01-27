@@ -19,14 +19,15 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     KidweekContext context;
+    @Autowired
+    FacebookService facebookService;
 
-    public User register(String userId) {
-        if (userRepository.exists(userId)) {
+    public User register(User user) {
+        if (userRepository.exists(user.getId())) {
             throw new IllegalArgumentException(("The user is already registered"));
         }
-        User user = new User();
-        user.setId(userId);
-        return userRepository.save(user);
+        userRepository.save(user);
+        return user;
     }
 
     public User save(User user) {

@@ -37,7 +37,7 @@ public class MeResource {
     @ApiOperation(value = "Creates a new user")
     @ResponseStatus(CREATED)
     public User register(@ApiParam(value = "Facebook access token", required = true) @RequestParam(name = "access_token") String fbToken) {
-        return userService.register(context.currentUserId());
+        return userService.register(context.currentUser());
     }
 
     @DeleteMapping(value = "")
