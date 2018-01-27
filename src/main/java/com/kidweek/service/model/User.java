@@ -26,7 +26,7 @@ import static javax.persistence.FetchType.EAGER;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@ApiModel(description = "Käyttäjä")
+@ApiModel(description = "User")
 public class User implements Serializable {
     @Id
     private String id; // facebook id
@@ -35,7 +35,7 @@ public class User implements Serializable {
     @OneToMany(fetch = EAGER, cascade = ALL)
     private Set<Pattern> patterns = new HashSet<>();
     @OneToMany(fetch = EAGER, cascade = ALL)
-    @ApiModelProperty(value = "poikkeukset")
+    @ApiModelProperty(value = "Exceptions")
     private Set<StatusException> exceptions = new HashSet<>();
 
     public List<StatusForDate> calendarFor(YearMonth yearMonth) {
@@ -85,16 +85,6 @@ public class User implements Serializable {
         return Optional.empty();
     }
 
-    public static String currentUserId() {
-        return currentUser().getId();
-    }
-
-    public static User currentUser() {
-        FacebookAuthentication authentication =
-                (FacebookAuthentication) SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getDetails();
-    }
-
     private Status fromPattern(Pattern pattern, LocalDate date) {
         LocalDate startDate = pattern.getStartDate();
         int between = toIntExact(ChronoUnit.DAYS.between(startDate, date));
@@ -106,7 +96,5 @@ public class User implements Serializable {
         return pattern.getStatuses().get(index);
 
     }
-
-
 
 }

@@ -2,8 +2,8 @@ package com.kidweek.service.resource;
 
 import com.kidweek.service.model.Pattern;
 import com.kidweek.service.model.User;
+import com.kidweek.service.security.KidweekContext;
 import com.kidweek.service.service.UserService;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static com.kidweek.service.model.User.currentUserId;
 import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -24,11 +23,12 @@ public class PatternResource {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private KidweekContext context;
     @GetMapping(value = "/{date}")
     public ResponseEntity<Pattern> get(@PathVariable(name = "date") @DateTimeFormat(iso = DATE) LocalDate date,
                               @RequestParam(name = "access_token") String fbToken) {
-        User user = userService.getUser(currentUserId());
+        User user = userService.getUser(context.currentUserId());
         Optional<Pattern> pattern = user.patternForDate(date);
         return pattern.isPresent()
                 ? new ResponseEntity<>(pattern.get(), HttpStatus.OK)
@@ -39,7 +39,7 @@ public class PatternResource {
     @ResponseStatus(CREATED)
     public User create(@RequestParam(name = "access_token") String fbToken,
                           @RequestBody Pattern pattern) {
-        User user = userService.getUser(currentUserId());
+        User user = userService.getUser(context.currentUserId());
         pattern.setCreatedOn(LocalDateTime.now());
         user.getPatterns().add(pattern);
         return userService.save(user);

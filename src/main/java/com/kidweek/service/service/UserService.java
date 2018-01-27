@@ -3,6 +3,7 @@ package com.kidweek.service.service;
 import com.kidweek.service.model.Pattern;
 import com.kidweek.service.model.StatusException;
 import com.kidweek.service.model.User;
+import com.kidweek.service.security.KidweekContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    KidweekContext context;
 
     public User register(String userId) {
         if (userRepository.exists(userId)) {
@@ -65,7 +68,7 @@ public class UserService {
 
     public User getUser(String userId) {
         User user = userRepository.findOne(userId);
-        user.setName(User.currentUser().getName());
+        user.setName(context.currentUser().getName());
         return user;
     }
 
@@ -74,7 +77,7 @@ public class UserService {
     }
 
     public User getUser() {
-        return userRepository.findOne(User.currentUserId());
+        return userRepository.findOne(context.currentUserId());
     }
 
 }
